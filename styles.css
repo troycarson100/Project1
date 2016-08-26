@@ -1,0 +1,57 @@
+/*header {
+  background-color: blue;
+}
+
+h1 {
+  text-align: center;
+  font: 60px;
+  color: white;
+  padding: 40px;
+}*/
+
+
+#container{
+  width: 2000px;
+  height: 2000px;
+}
+#row1 {
+  display: block;
+  width: 100%;
+}
+#row2{
+  margin-left: 490px;
+  display: inline-block;
+}
+#hero {
+  display: inline-block;
+  width: 105px;
+  height: 105px;
+  border: 1px solid black;
+}
+#row3{
+  display: inline-block;
+}
+#row4{
+  display: block;
+}
+#hero{
+  background: url(./photos/main-character-project1-transparent.png);
+  background-position: -189px;
+  background-color: black;
+}
+.enemy1n4{
+  display: block;
+  margin: 0 auto;
+}
+.enemy2n3{
+  display: inline-block;
+}
+.en-z{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 850px;
+}
+.enemy {
+  width: 105px;
+  height: 105px;
+  border: 1px solid black;
+}
