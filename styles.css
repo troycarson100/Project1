@@ -13,19 +13,20 @@ h1 {
 #container{
   width: 2000px;
   height: 2000px;
+  /*background-image: url('./photos/trippy-background.jpg');*/
 }
 #row1 {
   display: block;
   width: 100%;
 }
 #row2{
-  margin-left: 490px;
+  margin-left: 385px;
   display: inline-block;
 }
 #hero {
   display: inline-block;
-  width: 105px;
-  height: 105px;
+  width: 120px;
+  height: 120px;
   border: 1px solid black;
 }
 #row3{
@@ -46,12 +47,43 @@ h1 {
 .enemy2n3{
   display: inline-block;
 }
-.en-z{
+
+/*enemy img sprite classes*/
+.blank{
   background: url(./photos/enemy1-transparent.png);
-  background-position: 850px;
+  background-position: -644px;
 }
+.enImg1{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 1033px;
+}
+.enImg2{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 863px;
+}
+.explode{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 1214px;
+}
+.upWarning1{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 358px;
+}
+.upWarning2{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 185px;
+}
+.sideWarning1{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 674px;
+}
+.sideWarning2{
+  background: url(./photos/enemy1-transparent.png);
+  background-position: 517px;
+}
+
 .enemy {
-  width: 105px;
-  height: 105px;
+  width: 130px;
+  height: 130px;
   border: 1px solid black;
 }
