@@ -7,6 +7,24 @@ window.addEventListener("keydown", function(e) {
 }, false);
 /////////////////////////////////////////
 
+var game = {
+  player1: {score: 0}
+  player2: {score: 0}
+};
+
+game.currentPlayer = game.player1
+
+function switchTurns(){
+  if(game.currentPlayer == game.player1){
+    game.currentPlayer = game.player2
+  } else {
+    game.currentPlayer = game.player1
+  }
+};
+
+function increaseScore(){
+  game.currentPlayer.score += 1
+};
 
 $btn = $('#startBtn');
 $hero = $('#hero');
@@ -20,6 +38,8 @@ $e1 = $('#en-a');
 $e2 = $('#en-b');
 $e3 = $('#en-c');
 $e4 = $('#en-d');
+
+$top4 = [$e1, $e2, $e3, $e4];
 
 $e5 = $('#en-e');
 $e6 = $('#en-f');
@@ -78,15 +98,23 @@ $(document).keyup(function(e){
 function startEnemy(){
 
 };
-//Enemy Spin
+
+//Enemy Spin/move
 function spin(){
+  var i = 0;
   setInterval(function(){
-    $e1.toggleClass('enImg1');
+    $top4[i].toggleClass('enImg1');
     setTimeout(function(){
-      $e1.toggleClass('enImg2');
+      $top4[i].toggleClass('enImg2');
     }, 100);
   }, 100);
+  setInterval(function(){
+    i += 1;
+  }, 1000);
+
 }
+
+
 
 //Start/Stop Button
 $btn.on('click', spin);
