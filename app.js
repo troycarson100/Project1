@@ -8,12 +8,16 @@ window.addEventListener("keydown", function(e) {
 /////////////////////////////////////////
 
 var game = {
-  player1: {score: 0}
+  player1: {score: 0},
   player2: {score: 0}
 };
 
 game.currentPlayer = game.player1
 
+function reset(){
+  game.player1.score = 0;
+  game.player2.score = 0;
+};
 function switchTurns(){
   if(game.currentPlayer == game.player1){
     game.currentPlayer = game.player2
@@ -21,7 +25,6 @@ function switchTurns(){
     game.currentPlayer = game.player1
   }
 };
-
 function increaseScore(){
   game.currentPlayer.score += 1
 };
@@ -65,7 +68,19 @@ $(document).keydown(function(e){
     else if (e.key == "ArrowUp") {
         $hero.css("background-position", "1306px")
         $r1.css("background", "linear-gradient(to right, teal, yellow)")
+        //determine hit/explode
+        if ($enemy.css('display') === "block") {
+          clearInterval(spin)
+          clearInterval(move)
+          $enemy.removeClass('enImg1 enImg2')
+          $enemy.addClass('explode')
+          setTimeout(function(){
+            $enemy.fadeOut(1000, function(){
+            $enemy.removeClass('explode')
+          })
+        })
     }
+  }
     else if (e.key == "ArrowRight") {
         $hero.css("background-position", "167px")
         $r3.css("background", "linear-gradient(to bottom, teal, yellow)")
@@ -94,27 +109,50 @@ $(document).keyup(function(e){
 });
 
 
-//Start Enemy Function
-function startEnemy(){
-
-};
-
-//Enemy Spin/move
-function spin(){
-  var i = 0;
-  setInterval(function(){
-    $top4[i].toggleClass('enImg1');
-    setTimeout(function(){
-      $top4[i].toggleClass('enImg2');
-    }, 100);
-  }, 100);
-  setInterval(function(){
-    i += 1;
-  }, 1000);
+//Explode Enemy Functions
+function explode(){
 
 }
 
 
 
+// sample enemy advancement function:
+// function advanceEnemy(speed) {
+//   var enemyAdvancement = setInterval(function() {
+//     // appending the enemy to subsequent squares
+//   }, speed)
+// }
+// advanceEnemy(Math.random * 1000)
+
+
+ $enemy = $('#enemy');
+
+// in the HTML, let's start off the enemy with class enImg1, and run this code to then switch between enImg1 and enImg2:
+var spin = setInterval(function(){
+   $enemy.toggleClass('enImg1');
+   $enemy.toggleClass('enImg2');
+ }, 100);
+
+// Hide the 'enemy', then after a second goes by, move it to new div, and show it:
+var move = setInterval(function() {
+  $enemy.fadeOut(function(){
+     setTimeout(function(){
+        $enemy.parent().next().append($enemy)
+        $enemy.fadeIn()
+     }, 1000)
+  })
+  }, 2000)
+
+
+// // Enemy Move
+// setTimeout(function(){
+//   $top4[i].removeClass('enImg1 enImg2')
+// }, 2000);
+//   setInterval(function(){
+//     i += 1;
+//   }, 100);
+
+
+
 //Start/Stop Button
-$btn.on('click', spin);
+// $btn.on('click', spin);
