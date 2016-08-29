@@ -7,57 +7,37 @@ window.addEventListener("keydown", function(e) {
 }, false);
 /////////////////////////////////////////
 
-var game = {
-  player1: {score: 0},
-  player2: {score: 0}
-};
+// var game = {
+//   player1: {score: 0},
+//   player2: {score: 0}
+// };
+//
+// game.currentPlayer = game.player1
+//
+//
+// function reset(){
+//   game.player1.score = 0;
+//   game.player2.score = 0;
+// };
+// function switchTurns(){
+//   if(game.currentPlayer == game.player1){
+//      game.currentPlayer = game.player2
+//   } else {
+//      game.currentPlayer = game.player1
+//   }
+// };
+//
+// function increaseScore(){
+// game.currentPlayer.score += 1
+// };
 
-game.currentPlayer = game.player1
-
-function reset(){
-  game.player1.score = 0;
-  game.player2.score = 0;
-};
-function switchTurns(){
-  if(game.currentPlayer == game.player1){
-    game.currentPlayer = game.player2
-  } else {
-    game.currentPlayer = game.player1
-  }
-};
-function increaseScore(){
-  game.currentPlayer.score += 1
-};
-
+$score = $('#score');
 $btn = $('#startBtn');
 $hero = $('#hero');
 $r1 = $('.r1');
 $r2 = $('.r2');
 $r3 = $('.r3');
 $r4 = $('.r4');
-
-//Individual Enemy Cells
-$e1 = $('#en-a');
-$e2 = $('#en-b');
-$e3 = $('#en-c');
-$e4 = $('#en-d');
-
-$top4 = [$e1, $e2, $e3, $e4];
-
-$e5 = $('#en-e');
-$e6 = $('#en-f');
-$e7 = $('#en-g');
-$e8 = $('#en-h');
-
-$e9 = $('#en-i');
-$e10 = $('#en-j');
-$e11 = $('#en-k');
-$e12 = $('#en-l');
-
-$e13 = $('#en-m');
-$e14 = $('#en-n');
-$e15 = $('#en-o');
-$e16 = $('#en-p');
 
 //Key Up,Down,Left,Right Hero Functions
 $(document).keydown(function(e){
@@ -70,17 +50,18 @@ $(document).keydown(function(e){
         $r1.css("background", "linear-gradient(to right, teal, yellow)")
         //determine hit/explode
         if ($enemy.css('display') === "block") {
-          clearInterval(spin)
-          clearInterval(move)
-          $enemy.removeClass('enImg1 enImg2')
-          $enemy.addClass('explode')
+            clearInterval(spin)
+            clearInterval(move)
+            $enemy.removeClass('enImg1 enImg2')
+            $enemy.addClass('explode')
           setTimeout(function(){
             $enemy.fadeOut(1000, function(){
             $enemy.removeClass('explode')
           })
         })
+        $score.eq(0).text(Number($score.eq(0).text()) + 100)
+      }
     }
-  }
     else if (e.key == "ArrowRight") {
         $hero.css("background-position", "167px")
         $r3.css("background", "linear-gradient(to bottom, teal, yellow)")
@@ -107,12 +88,6 @@ $(document).keyup(function(e){
          $r4.removeAttr("style")
     }
 });
-
-
-//Explode Enemy Functions
-function explode(){
-
-}
 
 
 
@@ -142,16 +117,6 @@ var move = setInterval(function() {
      }, 1000)
   })
   }, 2000)
-
-
-// // Enemy Move
-// setTimeout(function(){
-//   $top4[i].removeClass('enImg1 enImg2')
-// }, 2000);
-//   setInterval(function(){
-//     i += 1;
-//   }, 100);
-
 
 
 //Start/Stop Button
