@@ -13,14 +13,16 @@ h1 {
 #container{
   width: 2000px;
   height: 2000px;
-  /*background-image: url('./photos/trippy-background.jpg');*/
+  background-image: url('./photos/trippy-background.jpg');
+  background-repeat: no-repeat;
+  background-size: 2000px 1300px;
 }
 #row1 {
   display: block;
   width: 100%;
 }
 #row2{
-  margin-left: 400px;
+  margin-left: 385px;
   display: inline-block;
 }
 #hero {
@@ -83,11 +85,16 @@ h1 {
   background-position: 517px;
 }
 .end{
-  background-color: red;
+  border: 10px dashed red;
 }
 .enemy {
   width: 130px;
   height: 130px;
   border-radius: 100px;
   /*border: 1px solid black;*/
+}
+header{
+  display: block;
+  text-align: center;
+
 }
