@@ -33,11 +33,38 @@ window.addEventListener("keydown", function(e) {
 
 $score = $('#score');
 $btn = $('#startBtn');
+$enemy = $('#enemy');
 $hero = $('#hero');
 $r1 = $('.r1');
 $r2 = $('.r2');
 $r3 = $('.r3');
 $r4 = $('.r4');
+$start1 = $('#start1');
+
+
+function init(){
+   move = setInterval(function() {
+    $enemy.fadeOut(function(){
+       setTimeout(function(){
+          $enemy.parent().next().append($enemy)
+          $enemy.fadeIn()
+       }, 1000)
+    })
+    }, 2000)
+
+   spin = setInterval(function(){
+       $enemy.toggleClass('enImg1');
+       $enemy.toggleClass('enImg2');
+     }, 100);
+}
+
+function generateEnemy() {
+    setTimeout(function(){
+    $start1.append('<div id="enemy" class="enImg1 enemy"></div>')
+    $enemy = $('#enemy')
+  }, 1000);
+  init();
+}
 
 //Key Up,Down,Left,Right Hero Functions
 $(document).keydown(function(e){
@@ -55,13 +82,15 @@ $(document).keydown(function(e){
             $enemy.removeClass('enImg1 enImg2')
             $enemy.addClass('explode')
           setTimeout(function(){
-            $enemy.fadeOut(1000, function(){
+            $enemy.fadeOut(300, function(){
             $enemy.removeClass('explode')
+            $enemy.remove()
+            generateEnemy()
+            $score.eq(0).text(Number($score.eq(0).text()) + 100)
           })
-        })
-        $score.eq(0).text(Number($score.eq(0).text()) + 100)
+          })
+        }
       }
-    }
     else if (e.key == "ArrowRight") {
         $hero.css("background-position", "167px")
         $r3.css("background", "linear-gradient(to bottom, teal, yellow)")
@@ -71,6 +100,7 @@ $(document).keydown(function(e){
         $r4.css("background", "linear-gradient(to right, teal, yellow)")
     }
 });
+
 $(document).keyup(function(e){
     if (e.key == "ArrowLeft") {
        $hero.css("background-position", "549px")
@@ -89,35 +119,30 @@ $(document).keyup(function(e){
     }
 });
 
+function die(){
+  if ($enemy.parent().hasClass('end')) {
+    $hero.css('background-image', 'url("./photos/death-poop.png")')
+    $hero.css("background-position", "-237px")
+  }
+}
+
+setInterval(function(){
+    die();
+}, 100);
 
 
-// sample enemy advancement function:
+
+//
+// // sample enemy advancement function:
 // function advanceEnemy(speed) {
 //   var enemyAdvancement = setInterval(function() {
 //     // appending the enemy to subsequent squares
 //   }, speed)
 // }
 // advanceEnemy(Math.random * 1000)
+//
 
 
- $enemy = $('#enemy');
 
-// in the HTML, let's start off the enemy with class enImg1, and run this code to then switch between enImg1 and enImg2:
-var spin = setInterval(function(){
-   $enemy.toggleClass('enImg1');
-   $enemy.toggleClass('enImg2');
- }, 100);
-
-// Hide the 'enemy', then after a second goes by, move it to new div, and show it:
-var move = setInterval(function() {
-  $enemy.fadeOut(function(){
-     setTimeout(function(){
-        $enemy.parent().next().append($enemy)
-        $enemy.fadeIn()
-     }, 1000)
-  })
-  }, 2000)
-
-
-//Start/Stop Button
-// $btn.on('click', spin);
+// Start/Stop Button
+$btn.on('click', generateEnemy);

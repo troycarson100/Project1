@@ -20,7 +20,7 @@ h1 {
   width: 100%;
 }
 #row2{
-  margin-left: 385px;
+  margin-left: 400px;
   display: inline-block;
 }
 #hero {
@@ -38,7 +38,8 @@ h1 {
 #hero{
   background: url(./photos/main-character-project1-transparent.png);
   background-position: -189px;
-  background-color: black;
+  /*background-color: black;*/
+  border: none;
 }
 .enemy1n4{
   display: block;
@@ -81,9 +82,12 @@ h1 {
   background: url(./photos/enemy1-transparent.png);
   background-position: 517px;
 }
-
+.end{
+  background-color: red;
+}
 .enemy {
   width: 130px;
   height: 130px;
-  border: 1px solid black;
+  border-radius: 100px;
+  /*border: 1px solid black;*/
 }
