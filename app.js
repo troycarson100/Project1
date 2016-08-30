@@ -47,6 +47,37 @@ var $enemyL = null;
 var $enemyR = null;
 var $enemyD = null;
 
+function masterEnGen(pathSelector, enemySelector, source, spinterval, moveInterval, dieSelect) {
+  pathSelector.append('<div id="' + enemySelector +'" style="display:none" class="enImg1 enemy"></div>')
+  $enemySelector = $('#' + enemySelector)
+  setTimeout(function(){
+    $enemySelector.fadeIn()
+  }, 1000);
+
+  moveInterval = setInterval(function() {
+   $enemySelector.fadeOut(function(){
+      setTimeout(function(){
+        if (source == "left" || source == "top" ) {
+           $enemySelector.parent().next().append($enemySelector)
+        } else if (source == "right" || source == "bottom"){
+          $enemySelector.parent().prev().append($enemySelector)
+        }
+         $enemySelector.fadeIn()
+      }, 750)
+   })
+ }, 1500)
+
+  spinterval = setInterval(function(){
+      $enemyL.toggleClass('enImg1');
+      $enemyL.toggleClass('enImg2');
+    }, 100);
+
+    setInterval(function(){
+        dieSelect();
+    }, 100);
+}
+
+
 function generateEnemy() {
   $start1.append('<div id="enemy" style="display:none" class="enImg1 enemy"></div>')
   $enemy = $('#enemy')
@@ -173,7 +204,7 @@ function generateEnemyD() {
 //     })
 //   }
 // }
-function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInterval, generateEnemySel) {
+function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInterval, generateEnemySel, source) {
   $hero.css("background-position", heroBGPos)
   pathSelector.css("background", "linear-gradient(to bottom, teal, yellow)")
   //determine hit/explode
@@ -186,7 +217,7 @@ function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInte
       enemySelector.fadeOut(1000, function(){
       enemySelector.removeClass('explode')
       enemySelector.remove()
-      generateEnemySel();
+      generateEnemySel(source);
       $score.eq(0).text(Number($score.eq(0).text()) + 100)
     })
     })
@@ -196,17 +227,17 @@ function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInte
 //Key Up,Down,Left,Right Hero Functions
 $(document).keydown(function(e){
     if (e.key == "ArrowLeft") {
-      blastEnemy('855px', $enemyL, $r2, spinL, moveL, generateEnemyL);
+      blastEnemy('855px', $enemyL, $r2, spinL, moveL, generateEnemyL, "left");
     }
     else if (e.key == "ArrowUp") {
-      blastEnemy('1306px', $enemy, $r1, spin, move,   generateEnemy);
+      blastEnemy('1306px', $enemy, $r1, spin, move,   generateEnemy, "top");
 
       }
     else if (e.key == "ArrowRight") {
-      blastEnemy('167px', $enemyR, $r3, spinR, moveR, generateEnemyR)
+      blastEnemy('167px', $enemyR, $r3, spinR, moveR, generateEnemyR, "right")
     }
     else if (e.key == "ArrowDown") {
-      blastEnemy('1160px', $enemyD, $r4, spinD, moveD, generateEnemyD)
+      blastEnemy('1160px', $enemyD, $r4, spinD, moveD, generateEnemyD, "bottom")
     }
 });
 
