@@ -85,9 +85,9 @@ function generateEnemyL() {
       setTimeout(function(){
          $enemyL.parent().next().append($enemyL)
          $enemyL.fadeIn()
-      }, 1000)
+      }, 750)
    })
-   }, 2000)
+ }, 1500)
 
   spinL = setInterval(function(){
       $enemyL.toggleClass('enImg1');
@@ -111,9 +111,9 @@ function generateEnemyR() {
       setTimeout(function(){
          $enemyR.parent().prev().append($enemyR)
          $enemyR.fadeIn()
-      }, 1000)
+      }, 500)
    })
-   }, 2000)
+ }, 1000)
 
   spinR = setInterval(function(){
       $enemyR.toggleClass('enImg1');
@@ -137,9 +137,9 @@ function generateEnemyD() {
       setTimeout(function(){
          $enemyD.parent().prev().append($enemyD)
          $enemyD.fadeIn()
-      }, 1000)
+      }, 600)
    })
-   }, 2000)
+ }, 1200)
 
   spinD = setInterval(function(){
       $enemyD.toggleClass('enImg1');
@@ -173,86 +173,40 @@ function generateEnemyD() {
 //     })
 //   }
 // }
-
-
+function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInterval, generateEnemySel) {
+  $hero.css("background-position", heroBGPos)
+  pathSelector.css("background", "linear-gradient(to bottom, teal, yellow)")
+  //determine hit/explode
+  if (enemySelector.css('display') === "block") {
+      clearInterval(spinterval)
+      clearInterval(moveInterval)
+      enemySelector.removeClass('enImg1 enImg2')
+      enemySelector.addClass('explode')
+    setTimeout(function(){
+      enemySelector.fadeOut(1000, function(){
+      enemySelector.removeClass('explode')
+      enemySelector.remove()
+      generateEnemySel();
+      $score.eq(0).text(Number($score.eq(0).text()) + 100)
+    })
+    })
+  }
+}
 
 //Key Up,Down,Left,Right Hero Functions
 $(document).keydown(function(e){
     if (e.key == "ArrowLeft") {
-       $hero.css("background-position", "855px")
-       $r2.css("background", "linear-gradient(to bottom, teal, yellow)")
-       //determine hit/explode
-       if ($enemyL.css('display') === "block") {
-           clearInterval(spinL)
-           clearInterval(moveL)
-           $enemyL.removeClass('enImg1 enImg2')
-           $enemyL.addClass('explode')
-         setTimeout(function(){
-           $enemyL.fadeOut(1000, function(){
-           $enemyL.removeClass('explode')
-           $enemyL.remove()
-           generateEnemyL()
-           $score.eq(0).text(Number($score.eq(0).text()) + 100)
-         })
-         })
-       }
+      blastEnemy('855px', $enemyL, $r2, spinL, moveL, generateEnemyL);
     }
     else if (e.key == "ArrowUp") {
-        $hero.css("background-position", "1306px")
-        $r1.css("background", "linear-gradient(to right, teal, yellow)")
-        //determine hit/explode
-        if ($enemy.css('display') === "block") {
-            clearInterval(spin)
-            clearInterval(move)
-            $enemy.removeClass('enImg1 enImg2')
-            $enemy.addClass('explode')
-          setTimeout(function(){
-            $enemy.fadeOut(1000, function(){
-            $enemy.removeClass('explode')
-            $enemy.remove()
-            generateEnemy()
-            $score.eq(0).text(Number($score.eq(0).text()) + 100)
-          })
-          })
-        }
+      blastEnemy('1306px', $enemy, $r1, spin, move,   generateEnemy);
+
       }
     else if (e.key == "ArrowRight") {
-        $hero.css("background-position", "167px")
-        $r3.css("background", "linear-gradient(to bottom, teal, yellow)")
-        //determine hit/explode
-        if ($enemyR.css('display') === "block") {
-            clearInterval(spinR)
-            clearInterval(moveR)
-            $enemyR.removeClass('enImg1 enImg2')
-            $enemyR.addClass('explode')
-          setTimeout(function(){
-            $enemyR.fadeOut(1000, function(){
-            $enemyR.removeClass('explode')
-            $enemyR.remove()
-            generateEnemyR()
-            $score.eq(0).text(Number($score.eq(0).text()) + 100)
-          })
-          })
-        }
+      blastEnemy('167px', $enemyR, $r3, spinR, moveR, generateEnemyR)
     }
     else if (e.key == "ArrowDown") {
-        $hero.css("background-position", "1160px")
-        $r4.css("background", "linear-gradient(to right, teal, yellow)")
-        //determine hit/explode
-        if ($enemyD.css('display') === "block") {
-            clearInterval(spinD)
-            clearInterval(moveD)
-            $enemyD.removeClass('enImg1 enImg2')
-            $enemyD.addClass('explode')
-          setTimeout(function(){
-            $enemyD.fadeOut(1000, function(){
-            $enemyD.removeClass('explode')
-            $enemyD.remove()
-            generateEnemyD()
-            $score.eq(0).text(Number($score.eq(0).text()) + 100)
-          })
-          })
-        }
+      blastEnemy('1160px', $enemyD, $r4, spinD, moveD, generateEnemyD)
     }
 });
 
