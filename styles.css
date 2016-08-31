@@ -68,22 +68,6 @@ h1 {
   background: url(./photos/enemy1-transparent.png);
   background-position: 1214px;
 }
-.upWarning1{
-  background: url(./photos/enemy1-transparent.png);
-  background-position: 358px;
-}
-.upWarning2{
-  background: url(./photos/enemy1-transparent.png);
-  background-position: 185px;
-}
-.sideWarning1{
-  background: url(./photos/enemy1-transparent.png);
-  background-position: 674px;
-}
-.sideWarning2{
-  background: url(./photos/enemy1-transparent.png);
-  background-position: 517px;
-}
 .end{
   border: 10px dashed red;
 }

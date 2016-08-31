@@ -12,13 +12,17 @@ var game = {
   player2: {score: 0, alive: true}
 };
 
-
 game.currentPlayer = game.player1
 
-// function reset(){
-//   game.player1.score = 0;
-//   game.player2.score = 0;
-// };
+function reset(){
+  game.player1.score = 0;
+  game.player2.score = 0;
+  game.player1.alive = true;
+  game.player2.alive = true;
+  game.currentPlayer = game.player1;
+  $btn.text('Start!');
+  $message.text('Player 1');
+};
 
 function switchTurns(){
   if(game.currentPlayer == game.player1){
@@ -27,17 +31,26 @@ function switchTurns(){
 };
 
 function getWinner() {
-  if(game.player1.score > game.player2.score){
-  console.log('Player 1 Wins!')
-} else if (game.player1.score < game.player2.score) {
-  console.log('Player 2 Wins!')
-} else {
-  console.log('Tie Game')
+    if(game.player1.score > game.player2.score){
+      $message.text('PLAYER 1 WINS!');
+      $btn.text('restart');
+      $btn.on('click', function(){
+        location.reload()
+      })
+  } else if (game.player1.score < game.player2.score) {
+      $message.text('PLAYER 2 WINS!');
+      $btn.text('restart');
+      $btn.on('click', function(){
+        location.reload()
+      })  } else {
+      $message.text('TIE GAME!');
+      $btn.text('restart');
+      $btn.on('click', function(){
+          location.reload()
+      })  }
 }
-}
 
-
-
+var $message = $('#message');
 var $score = $('#score');
 var $btn = $('#startBtn');
 var $hero = $('#hero');
@@ -82,7 +95,6 @@ var $enemyD = null;
 // }
 
 
-
 function generateEnemy() {
   $start1.append('<div id="enemy" style="display:none" class="enImg1 enemy"></div>')
   $enemy = $('#enemy')
@@ -106,10 +118,6 @@ function generateEnemy() {
       $enemy.toggleClass('enImg1');
       $enemy.toggleClass('enImg2');
     }, 100);
-
-  //  dieInt1 = setInterval(function(){
-  //          dieMaster($enemy);
-  //      }, 100);
 }
 
 function generateEnemyL() {
@@ -135,10 +143,6 @@ function generateEnemyL() {
       $enemyL.toggleClass('enImg1');
       $enemyL.toggleClass('enImg2');
     }, 100);
-
-  // dieInt2 = setInterval(function(){
-  //          dieMaster($enemyL);
-  //      }, 100);
 }
 
 function generateEnemyR() {
@@ -164,10 +168,6 @@ function generateEnemyR() {
       $enemyR.toggleClass('enImg1');
       $enemyR.toggleClass('enImg2');
     }, 100);
-
-// dieInt3 = setInterval(function(){
-//            dieMaster($enemyR);
-//        }, 100);
 }
 
 function generateEnemyD() {
@@ -193,10 +193,6 @@ function generateEnemyD() {
       $enemyD.toggleClass('enImg1');
       $enemyD.toggleClass('enImg2');
     }, 100);
-
-//   dieInt4 = setInterval(function(){
-//            dieMaster($enemyD);
-//        }, 100);
 }
 
 function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInterval, generateEnemySel) {
@@ -262,11 +258,11 @@ function dieMaster (enemySelector){
  if (enemySelector.parent().hasClass('end')) {
   $hero.css('background-image', 'url("./photos/death-poop.png")')
   $hero.css("background-position", "-237px")
-
   game.currentPlayer.alive = false;
 
   if (game.player1.alive == false) {
     $btn.text('Player2 Start!');
+    $message.text('Player 2 Turn');
   }
   if (game.player2.alive == false) {
     getWinner()
@@ -289,13 +285,15 @@ $btn.on('click', function(){
   generateEnemyR();
   generateEnemyD();
 
-  $(this).off()
-  $(this).on('click', function(){
-    switchTurns();
-    generateEnemy();
-    generateEnemyL();
-    generateEnemyR();
-    generateEnemyD();
-
+    $(this).off()
+    //Round 2 button
+    $(this).on('click', function(){
+      switchTurns();
+      $hero.css('background-image', 'url("./photos/main-character-project1-transparent.png")')
+      $hero.css("background-position", "-189px")
+      generateEnemy();
+      generateEnemyL();
+      generateEnemyR();
+      generateEnemyD();
   })
 })
