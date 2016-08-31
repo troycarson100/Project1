@@ -8,9 +8,10 @@ window.addEventListener("keydown", function(e) {
 /////////////////////////////////////////
 
 var game = {
-  player1: {score: 0},
-  player2: {score: 0}
+  player1: {score: 0, alive: true},
+  player2: {score: 0, alive: true}
 };
+
 
 game.currentPlayer = game.player1
 
@@ -19,17 +20,21 @@ game.currentPlayer = game.player1
 //   game.player2.score = 0;
 // };
 
-// function switchTurns(){
-//   if(game.currentPlayer == game.player1){
-//      game.currentPlayer = game.player2
-//   } else {
-//     //  alert('winner')
-//   }
-// };
+function switchTurns(){
+  if(game.currentPlayer == game.player1){
+     game.currentPlayer = game.player2;
+  }
+};
 
-//HighScore
-var scores = [];
-
+function getWinner() {
+  if(game.player1.score > game.player2.score){
+  console.log('Player 1 Wins!')
+} else if (game.player1.score < game.player2.score) {
+  console.log('Player 2 Wins!')
+} else {
+  console.log('Tie Game')
+}
+}
 
 
 
@@ -49,10 +54,33 @@ var $enemyL = null;
 var $enemyR = null;
 var $enemyD = null;
 
-// 
-// function masterEnGen(){
+
+// function masterEnGen(enemyId, start, spinterval, moveInterval){
+//     start.append('<div id="enemy" style="display:none" class="enImg1 enemy"></div>')
+//     enemySelector = $('#enemy')
+//     setTimeout(function(){
+//     enemyId.fadeIn()
+//   }, 1000);
 //
+//     moveInterval = setInterval(function() {
+//     enemySelector.fadeOut(function(){
+//       setTimeout(function(){
+//          enemySelector.parent().next().append(enemySelector)
+//          enemySelector.fadeIn()
+//       }, 1000)
+//     })
+//    }, 2000)
+//
+//     spinterval = setInterval(function(){
+//         enemySelector.toggleClass('enImg1');
+//         enemySelector.toggleClass('enImg2');
+//       }, 100);
+//
+//     setInterval(function(){
+//            dieMaster(enemySelector);
+//        }, 100);
 // }
+
 
 
 function generateEnemy() {
@@ -64,6 +92,9 @@ function generateEnemy() {
 
   move = setInterval(function() {
    $enemy.fadeOut(function(){
+     if (game.currentPlayer.alive == true) {
+        dieMaster($enemy);
+     }
       setTimeout(function(){
          $enemy.parent().next().append($enemy)
          $enemy.fadeIn()
@@ -76,9 +107,9 @@ function generateEnemy() {
       $enemy.toggleClass('enImg2');
     }, 100);
 
-    setInterval(function(){
-           dieMaster($enemy);
-       }, 100);
+  //  dieInt1 = setInterval(function(){
+  //          dieMaster($enemy);
+  //      }, 100);
 }
 
 function generateEnemyL() {
@@ -90,6 +121,9 @@ function generateEnemyL() {
 
   moveL = setInterval(function() {
    $enemyL.fadeOut(function(){
+     if (game.currentPlayer.alive == true) {
+        dieMaster($enemyL);
+     }
       setTimeout(function(){
          $enemyL.parent().next().append($enemyL)
          $enemyL.fadeIn()
@@ -102,9 +136,9 @@ function generateEnemyL() {
       $enemyL.toggleClass('enImg2');
     }, 100);
 
-    setInterval(function(){
-           dieMaster($enemyL);
-       }, 100);
+  // dieInt2 = setInterval(function(){
+  //          dieMaster($enemyL);
+  //      }, 100);
 }
 
 function generateEnemyR() {
@@ -116,6 +150,9 @@ function generateEnemyR() {
 
  moveR = setInterval(function() {
    $enemyR.fadeOut(function(){
+     if (game.currentPlayer.alive == true) {
+        dieMaster($enemyR);
+     }
       setTimeout(function(){
          $enemyR.parent().prev().append($enemyR)
          $enemyR.fadeIn()
@@ -128,9 +165,9 @@ function generateEnemyR() {
       $enemyR.toggleClass('enImg2');
     }, 100);
 
-  setInterval(function(){
-           dieMaster($enemyR);
-       }, 100);
+// dieInt3 = setInterval(function(){
+//            dieMaster($enemyR);
+//        }, 100);
 }
 
 function generateEnemyD() {
@@ -142,6 +179,9 @@ function generateEnemyD() {
 
   moveD = setInterval(function() {
    $enemyD.fadeOut(function(){
+     if (game.currentPlayer.alive == true) {
+        dieMaster($enemyD);
+     }
       setTimeout(function(){
          $enemyD.parent().prev().append($enemyD)
          $enemyD.fadeIn()
@@ -154,9 +194,9 @@ function generateEnemyD() {
       $enemyD.toggleClass('enImg2');
     }, 100);
 
-    setInterval(function(){
-           dieMaster($enemyD);
-       }, 100);
+//   dieInt4 = setInterval(function(){
+//            dieMaster($enemyD);
+//        }, 100);
 }
 
 function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInterval, generateEnemySel) {
@@ -173,7 +213,8 @@ function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInte
       enemySelector.removeClass('explode')
       enemySelector.remove()
       generateEnemySel();
-      $score.eq(0).text(Number($score.eq(0).text()) + 100)
+      game.currentPlayer.score += 100
+      $score.eq(0).text(game.currentPlayer.score)
     })
     })
   }
@@ -181,6 +222,7 @@ function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInte
 
 //Key Up,Down,Left,Right Hero Functions
 $(document).keydown(function(e){
+  if (game.currentPlayer.alive == true) {
     if (e.key == "ArrowLeft") {
       blastEnemy('855px', $enemyL, $r2, spinL, moveL, generateEnemyL, "left");
     }
@@ -194,6 +236,7 @@ $(document).keydown(function(e){
     else if (e.key == "ArrowDown") {
       blastEnemy('1160px', $enemyD, $r4, spinD, moveD, generateEnemyD, "bottom")
     }
+  }
 });
 
 $(document).keyup(function(e){
@@ -219,16 +262,40 @@ function dieMaster (enemySelector){
  if (enemySelector.parent().hasClass('end')) {
   $hero.css('background-image', 'url("./photos/death-poop.png")')
   $hero.css("background-position", "-237px")
-  $enemy.hide();
-  $enemyL.hide();
-  $enemyR.hide();
-  $enemyD.hide();
-  game.player1.score = $score.val();
+
+  game.currentPlayer.alive = false;
+
+  if (game.player1.alive == false) {
+    $btn.text('Player2 Start!');
+  }
+  if (game.player2.alive == false) {
+    getWinner()
+  }
+  $enemy.remove();
+  $enemyL.remove();
+  $enemyR.remove();
+  $enemyD.remove();
+  clearInterval(move)
+  clearInterval(moveR)
+  clearInterval(moveL)
+  clearInterval(moveD)
   }
 }
 
 // Start/Stop Button
-$btn.on('click', generateEnemy);
-$btn.on('click', generateEnemyL);
-$btn.on('click', generateEnemyR);
-$btn.on('click', generateEnemyD);
+$btn.on('click', function(){
+  generateEnemy();
+  generateEnemyL();
+  generateEnemyR();
+  generateEnemyD();
+
+  $(this).off()
+  $(this).on('click', function(){
+    switchTurns();
+    generateEnemy();
+    generateEnemyL();
+    generateEnemyR();
+    generateEnemyD();
+
+  })
+})
