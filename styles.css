@@ -1,8 +1,32 @@
 
 body{
-  background: linear-gradient(to top, white , black);
+
   width: 2000px;
   height: 1535px;
+
+
+    background: linear-gradient(68deg, #2abc96, #af3df4, #e9ff5c, #5cffd2);
+    background-size: 800% 800%;
+
+    -webkit-animation: AnimationName 31s ease infinite;
+    -moz-animation: AnimationName 31s ease infinite;
+    animation: AnimationName 31s ease infinite;
+
+    @-webkit-keyframes AnimationName {
+      0%{background-position:0% 38%}
+      50%{background-position:100% 63%}
+      100%{background-position:0% 38%}
+    }
+    @-moz-keyframes AnimationName {
+      0%{background-position:0% 38%}
+      50%{background-position:100% 63%}
+      100%{background-position:0% 38%}
+    }
+    @keyframes AnimationName {
+      0%{background-position:0% 38%}
+      50%{background-position:100% 63%}
+      100%{background-position:0% 38%}
+    }
 }
 
 #row1 {
@@ -79,7 +103,6 @@ header{
 }
 h1, h2, h3 {
   color: white;
-
 }
 h1 {
   font-size: 90px;
@@ -98,6 +121,8 @@ button{
   border-radius: 10px;
   width: 200px;
 }
-/*#b2{
-  width: 250px;
-}*/
+footer {
+  background: black;
+  height: 100px;
+  width: 2000px;
+}
