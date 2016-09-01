@@ -59,6 +59,9 @@ var $enemy = null;
 var moveInterval = {};
 var spinterval = {};
 
+function getRandom(min, max){
+  return Math.random() * (max - min) + min
+}
 
 function Enemy(direction) {
 
@@ -68,7 +71,7 @@ function Enemy(direction) {
 
   setTimeout(function(){
     $enemy.fadeIn()
-  }, 1000);
+  }, getRandom(700, 1000));
 
   moveInterval[direction] = setInterval(function() {
     $enemy.fadeOut(function(){
@@ -79,9 +82,9 @@ function Enemy(direction) {
           $enemy.parent().prev().append($enemy)
         }
         $enemy.fadeIn()
-      }, 1000)
+      }, getRandom(600, 1500))
     })
-  }, 2000)
+  }, getRandom(800, 2000))
 
   spinterval[direction] = setInterval(function(){
     $enemy.toggleClass('enImg1');
