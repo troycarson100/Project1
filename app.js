@@ -82,7 +82,7 @@ function Enemy(direction) {
           $enemy.parent().prev().append($enemy)
         }
         $enemy.fadeIn()
-      }, getRandom(600, 1500))
+      }, getRandom(500, 1500))
     })
   }, getRandom(800, 2000))
 
