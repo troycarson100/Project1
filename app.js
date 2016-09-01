@@ -5,7 +5,9 @@ window.addEventListener("keydown", function(e) {
         e.preventDefault();
     }
 }, false);
+
 /////////////////////////////////////////
+
 
 var game = {
   player1: {score: 0, alive: true},
@@ -14,15 +16,6 @@ var game = {
 
 game.currentPlayer = game.player1
 
-// function reset(){
-//   game.player1.score = 0;
-//   game.player2.score = 0;
-//   game.player1.alive = true;
-//   game.player2.alive = true;
-//   game.currentPlayer = game.player1;
-//   $btn.text('Start!');
-//   $message.text('Player 1');
-// };
 
 function switchTurns(){
   if(game.currentPlayer == game.player1){
@@ -58,41 +51,51 @@ var $r1 = $('.r1');
 var $r2 = $('.r2');
 var $r3 = $('.r3');
 var $r4 = $('.r4');
-var $start1 = $('#start1');
-var $start2 = $('#start2');
-var $start3 = $('#start3');
-var $start4 = $('#start4');
+var $start1 = $('#start-top');
+var $start2 = $('#start-left');
+var $start3 = $('#start-right');
+var $start4 = $('#start-bottom');
 var $enemy = null;
 var $enemyL = null;
 var $enemyR = null;
 var $enemyD = null;
 
+function Enemy(direction) {
 
-// function masterEnGen(enemyId, start, spinterval, moveInterval){
-//     start.append('<div id="enemy" style="display:none" class="enImg1 enemy"></div>')
-//     enemySelector = $('#enemy')
-//     setTimeout(function(){
-//     enemyId.fadeIn()
-//   }, 1000);
-//
-//     moveInterval = setInterval(function() {
-//     enemySelector.fadeOut(function(){
-//       setTimeout(function(){
-//          enemySelector.parent().next().append(enemySelector)
-//          enemySelector.fadeIn()
-//       }, 1000)
-//     })
-//    }, 2000)
-//
-//     spinterval = setInterval(function(){
-//         enemySelector.toggleClass('enImg1');
-//         enemySelector.toggleClass('enImg2');
-//       }, 100);
-//
-//     setInterval(function(){
-//            dieMaster(enemySelector);
-//        }, 100);
-// }
+  $('#start-' + direction).append('<div id="enemy-' + direction + '" style="display:none" class="enImg1 enemy spikey"></div>')
+
+  var $enemy = $('#enemy-' + direction)
+
+  setTimeout(function(){
+    $enemy.fadeIn()
+  }, 1000);
+
+  var moveInterval = setInterval(function() {
+    $enemy.fadeOut(function(){
+      setTimeout(function(){
+        if(direction == 'top' || direction == 'left') {
+          $enemy.parent().next().append($enemy)
+        } else {
+          $enemy.parent().prev().append($enemy)
+        }
+        $enemy.fadeIn()
+      }, 1000)
+    })
+  }, 2000)
+
+  setInterval(function(){
+    $enemy.toggleClass('enImg1');
+    $enemy.toggleClass('enImg2');
+  }, 100);
+
+  setInterval(function(){
+    dieMaster($enemy);
+  }, 100);
+
+}
+
+
+
 
 
 function generateEnemy() {
@@ -220,17 +223,17 @@ function blastEnemy(heroBGPos, enemySelector, pathSelector, spinterval, moveInte
 $(document).keydown(function(e){
   if (game.currentPlayer.alive == true) {
     if (e.key == "ArrowLeft") {
-      blastEnemy('855px', $enemyL, $r2, spinL, moveL, generateEnemyL, "left");
+      blastEnemy('855px', $enemyL, $r2, spinL, moveL, generateEnemyL);
     }
     else if (e.key == "ArrowUp") {
-      blastEnemy('1306px', $enemy, $r1, spin, move,   generateEnemy, "top");
+      blastEnemy('1306px', $enemy, $r1, spin, move,   generateEnemy);
 
       }
     else if (e.key == "ArrowRight") {
-      blastEnemy('167px', $enemyR, $r3, spinR, moveR, generateEnemyR, "right")
+      blastEnemy('167px', $enemyR, $r3, spinR, moveR, generateEnemyR)
     }
     else if (e.key == "ArrowDown") {
-      blastEnemy('1160px', $enemyD, $r4, spinD, moveD, generateEnemyD, "bottom")
+      blastEnemy('1160px', $enemyD, $r4, spinD, moveD, generateEnemyD)
     }
   }
 });
@@ -267,10 +270,7 @@ function dieMaster (enemySelector){
   if (game.player2.alive == false) {
     getWinner()
   }
-  $enemy.remove();
-  $enemyL.remove();
-  $enemyR.remove();
-  $enemyD.remove();
+  $('.spikey').remove();
   clearInterval(move)
   clearInterval(moveR)
   clearInterval(moveL)

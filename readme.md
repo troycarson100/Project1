@@ -15,7 +15,7 @@ Players can only fire their blasters horizontally or vertically with the arrow k
 
 ##To Play
 
-Visit **[Insert Website Here]** to play, or simply download a .zip of this repo and open index.html in your browser.
+Visit **https://troycarson100.github.io/project1/** to play, or simply download a .zip of this repo and open index.html in your browser.
 
 ##Development process
 
