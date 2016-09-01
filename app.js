@@ -14,15 +14,15 @@ var game = {
 
 game.currentPlayer = game.player1
 
-function reset(){
-  game.player1.score = 0;
-  game.player2.score = 0;
-  game.player1.alive = true;
-  game.player2.alive = true;
-  game.currentPlayer = game.player1;
-  $btn.text('Start!');
-  $message.text('Player 1');
-};
+// function reset(){
+//   game.player1.score = 0;
+//   game.player2.score = 0;
+//   game.player1.alive = true;
+//   game.player2.alive = true;
+//   game.currentPlayer = game.player1;
+//   $btn.text('Start!');
+//   $message.text('Player 1');
+// };
 
 function switchTurns(){
   if(game.currentPlayer == game.player1){

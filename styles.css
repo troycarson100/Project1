@@ -1,22 +1,10 @@
-/*header {
-  background-color: blue;
-}
 
-h1 {
-  text-align: center;
-  font: 60px;
-  color: white;
-  padding: 40px;
-}*/
-
-
-#container{
+body{
+  background: linear-gradient(to top, white , black);
   width: 2000px;
-  height: 2000px;
-  background-image: url('./photos/trippy-background.jpg');
-  background-repeat: no-repeat;
-  background-size: 2000px 1300px;
+  height: 1535px;
 }
+
 #row1 {
   display: block;
   width: 100%;
@@ -40,7 +28,6 @@ h1 {
 #hero{
   background: url(./photos/main-character-project1-transparent.png);
   background-position: -189px;
-  /*background-color: black;*/
   border: none;
 }
 .enemy1n4{
@@ -77,8 +64,40 @@ h1 {
   border-radius: 100px;
   /*border: 1px solid black;*/
 }
-header{
-  display: block;
+.block {
+  display: inline-block;
+  width: 401px;
+  height: 270px;
+  margin-right: 1%;
+  margin-left: 6%;
   text-align: center;
+}
+
+header{
+  font-family: 'Orbitron', sans-serif;
+  background-color: black;
+}
+h1, h2, h3 {
+  color: white;
 
 }
+h1 {
+  font-size: 90px;
+  float: left;
+  margin-left: 1%;
+}
+h2{
+  font-size: 50px;
+}
+h3 {
+  font-size: 40px;
+}
+button{
+  font-size: 40px;
+  background-color: white;
+  border-radius: 10px;
+  width: 200px;
+}
+/*#b2{
+  width: 250px;
+}*/

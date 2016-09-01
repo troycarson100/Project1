@@ -5,19 +5,23 @@
     <title>Project 1</title>
     <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
     <script src="./jquery-2.2.4.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:400,500,700,900" rel="stylesheet">
   </head>
   <body>
 <header>
   <h1>Ray Blasters</h1>
 
+<div class="block">
   <h2 id="message">Player 1</h2>
+  <button id=startBtn type="button" name="button">Start!</button>
+</div>
 
-<button id=startBtn type="button" name="button">Start!</button>
-
-<h1>Current Score</h1>
-
-<h2 id="score">0</h2>
+<div id="b2" class="block">
+  <h2>Current Score</h1>
+  <h3 id="score">0</h3>
+</div>
 </header>
+
 
 <div id="container">
 
@@ -71,12 +75,7 @@
 
     <div id="start4" class="enemy enemy1n4 r4"></div>
 
-  </div>
-
-
-</div>
-
-
+    </div>
 
 
     <script src="app.js" charset="utf-8"></script>
