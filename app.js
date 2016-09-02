@@ -65,7 +65,7 @@ var moveInterval = {};
 var spinterval = {};
 var blasterSound = new Audio('audio/laser.mp3');
 var loop = new Audio('audio/loop.mp3')
-
+var fart = new Audio('audio/fart-03.mp3')
 //Waiting Music
 loop.play();
 
@@ -175,10 +175,11 @@ $(document).keyup(function(e){
 //Die Master function
 function dieMaster (enemySelector, direction){
  if (enemySelector.parent().hasClass('end')) {
+
   $hero.css('background-image', 'url("./photos/death-poop.png")')
   $hero.css("background-position", "-237px")
   game.currentPlayer.alive = false;
-
+  fart.play();
   if (game.player1.alive == false) {
     loop.play();
     $btn.text('Player2 Start!');
