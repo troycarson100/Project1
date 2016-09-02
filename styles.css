@@ -54,6 +54,26 @@ body{
   background-position: -189px;
   border: none;
 }
+#hover{
+  color: white;
+  position: absolute;
+  display: inline;
+  margin-top: 200px;
+  margin-left: -654px;
+  width: 500px;
+  font-size: 30px;
+
+  }
+span {
+  display: none;
+}
+
+div:hover span{
+  display: inline;;
+}
+div:hover p {
+  background: black;
+}
 .enemy1n4{
   display: block;
   margin: 0 auto;
