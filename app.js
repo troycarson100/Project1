@@ -15,28 +15,33 @@ var game = {
 };
 
 game.currentPlayer = game.player1
-
-
+//Switch Turns
 function switchTurns(){
   if(game.currentPlayer == game.player1){
      game.currentPlayer = game.player2;
   }
 };
-
+//Get Winner
 function getWinner() {
     if(game.player1.score > game.player2.score){
+      $message.css("color", "gold")
       $message.text('PLAYER 1 WINS!');
+      loop.play()
       $btn.text('restart');
       $btn.on('click', function(){
         location.reload()
       })
   } else if (game.player1.score < game.player2.score) {
       $message.text('PLAYER 2 WINS!');
+        $message.css("color", "gold")
+      loop.play();
       $btn.text('restart');
       $btn.on('click', function(){
         location.reload()
       })  } else {
+        loop.play();
       $message.text('TIE GAME!');
+        $message.css("color", "gold")
       $btn.text('restart');
       $btn.on('click', function(){
           location.reload()
@@ -58,11 +63,18 @@ var $start4 = $('#start-bottom');
 var $enemy = null;
 var moveInterval = {};
 var spinterval = {};
+var blasterSound = new Audio('audio/laser.mp3');
+var loop = new Audio('audio/loop.mp3')
 
+//Waiting Music
+loop.play();
+
+//Random Speed Generater
 function getRandom(min, max){
   return Math.random() * (max - min) + min
 }
 
+//Enemy Creator
 function Enemy(direction) {
 
   $('#start-' + direction).append('<div id="enemy-' + direction + '" style="display:none" class="enImg1 enemy spikey"></div>')
@@ -82,7 +94,7 @@ function Enemy(direction) {
           $enemy.parent().prev().append($enemy)
         }
         $enemy.fadeIn()
-      }, getRandom(500, 1500))
+      }, getRandom(700, 1500))
     })
   }, getRandom(800, 2000))
 
@@ -96,7 +108,7 @@ function Enemy(direction) {
   }, 100);
 }
 
-
+//Blast Enemy Function
 function blastEnemy(heroBGPos, pathSelector, generateEnemySel, direction) {
   $hero.css("background-position", heroBGPos)
   pathSelector.css("background", "linear-gradient(to bottom, teal, yellow)")
@@ -117,18 +129,21 @@ function blastEnemy(heroBGPos, pathSelector, generateEnemySel, direction) {
       $score.eq(0).text(game.currentPlayer.score)
     })
     })
+  } else if ($enemy.css('display') === "none") {
+      game.currentPlayer.score -= 100
   }
 }
 
-//Key Up,Down,Left,Right Hero Functions
+//Keydown Up,Down,Left,Right Hero Functions
 $(document).keydown(function(e){
   if (game.currentPlayer.alive == true) {
     if (e.key == "ArrowLeft") {
       blastEnemy('855px', $r2, Enemy, "left");
+      blasterSound.play();
     }
     else if (e.key == "ArrowUp") {
       blastEnemy('1306px', $r1, Enemy, "top");
-
+      blasterSound.play();
       }
     else if (e.key == "ArrowRight") {
       blastEnemy('167px', $r3, Enemy, "right")
@@ -138,7 +153,7 @@ $(document).keydown(function(e){
     }
   }
 });
-
+//KeyUp
 $(document).keyup(function(e){
     if (e.key == "ArrowLeft") {
        $hero.css("background-position", "549px")
@@ -165,6 +180,7 @@ function dieMaster (enemySelector, direction){
   game.currentPlayer.alive = false;
 
   if (game.player1.alive == false) {
+    loop.play();
     $btn.text('Player2 Start!');
     $message.text('Player 2 Turn');
   }
@@ -176,8 +192,9 @@ function dieMaster (enemySelector, direction){
   }
 }
 
-// Start/Stop Button
+// Start Button
 $btn.on('click', function(){
+  loop.pause();
   Enemy("top");
   Enemy("left");
   Enemy("right");
@@ -185,7 +202,9 @@ $btn.on('click', function(){
 
     $(this).off()
     //Round 2 button
+
     $(this).on('click', function(){
+      loop.pause();
       switchTurns();
       $hero.css('background-image', 'url("./photos/main-character-project1-transparent.png")')
       $hero.css("background-position", "-189px")
